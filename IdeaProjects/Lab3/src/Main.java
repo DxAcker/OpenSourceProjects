@@ -26,13 +26,48 @@ public class Main {
         return output;
     }
 
+//    public static boolean validIP (String ip) {
+//        try {
+//            if ( ip == null || ip.isEmpty() ) {
+//                return false;
+//            }
+//            String[] parts = ip.split( "\\." );
+//            if ( parts.length != 4 ) {
+//                return false;
+//            }
+//            for ( String s : parts ) {
+//                int i = Integer.parseInt( s );
+//                if ( (i < 0) || (i > 255) ) {
+//                    return false;
+//                }
+//            }
+//            if ( ip.endsWith(".") ) {
+//                return false;
+//            }
+//            return true;
+//        } catch (NumberFormatException nfe) {
+//            return false;
+//        }
+//    }
+
+    public static boolean IsBin (String ip) {
+        String[] words = ip.split("\\.");
+        for (String word : words) {
+            if (!word.matches("[0-1]+")) return false;
+        }
+        return true;
+    }
+
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
         System.out.print("Input an IP: ");
         String IPin = in.nextLine();
-        System.out.print("Your entered IP type is (1)Dec or (2)Bin?: ");
-        short answer = in.nextShort();
-        if (answer == 1) {
+//        if (!validIP(IPin)) {
+//            System.err.println("Your ip is incorrect! Try again!");
+//        }
+//        System.out.print("Your entered IP type is (1)Dec or (2)Bin?: ");
+//        short answer = in.nextShort();
+        if (!IsBin(IPin)) {
             String out = IPtoBin(IPin);
             System.out.println("Your binary IP: " + out);
             if      (out.charAt(0) == '0') System.out.println("The class of IP is A.");
