@@ -64,6 +64,9 @@ public class Main {
                 if ( (i < 0) || (i > 11111111) ) {
                     return false;
                 }
+                for (String mini : parts) {
+                    if (!mini.matches("[0-1][0-1][0-1][0-1][0-1][0-1][0-1][0-1]")) return false;
+                }
             }
             return !ip.endsWith(".");
         } catch (NumberFormatException nfe) {
@@ -81,34 +84,56 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.print("Input an IP: ");
+        System.out.print("Введите IP: ");
         String IPin = in.nextLine();
         if (!IsBin(IPin)) {
             if (!validIPDec(IPin)) {
-                System.err.println("Your ip is incorrect! Try again!");
+                System.err.println("IP не корректен! Ошибка!");
             } else {
                 String out = IPtoBin(IPin);
-                System.out.println("Your binary IP: " + out);
-                if (out.charAt(0) == '0') System.out.println("The class of IP is A.");
-                else if (out.charAt(0) == '1' && out.charAt(1) == '0') System.out.println("The class of IP is B.");
-                else if (out.charAt(1) == '1' && out.charAt(2) == '0') System.out.println("The class of IP is C.");
-                else if (out.charAt(2) == '1' && out.charAt(3) == '0') System.out.println("The class of IP is D.");
-                else if (out.charAt(3) == '1' && out.charAt(4) == '0') System.out.println("The class of IP is E.");
-                else System.err.println("IP does not belong to class");
+                String[] parts = IPtoBin(IPin).split("\\.");
+                System.out.println("IP в двоичной форме - " + out);
+                if (out.charAt(0) == '0' && Integer.parseInt(parts[0]) != 0) {
+                    System.out.println("Класс IP - A.");
+                }
+                else if (out.charAt(0) == '1' && out.charAt(1) == '0' && Integer.parseInt(parts[1]) != 0 && Integer.parseInt(parts[0]) != 0) {
+                    System.out.println("Класс IP - B.");
+                }
+                else if (out.charAt(1) == '1' && out.charAt(2) == '0' && Integer.parseInt(parts[2] ) != 0 && Integer.parseInt(parts[1]) != 0) {
+                    System.out.println("Класс IP - C.");
+                }
+                else if (out.charAt(2) == '1' && out.charAt(3) == '0' && Integer.parseInt(parts[3]) != 0 && Integer.parseInt(parts[2]) != 0 && Integer.parseInt(parts[1]) != 0) {
+                    System.out.println("Класс IP - D.");
+                }
+                else if (out.charAt(3) == '1' && out.charAt(4) == '0' && Integer.parseInt(parts[4]) != 0 && Integer.parseInt(parts[3]) != 0 && Integer.parseInt(parts[2]) != 0 && Integer.parseInt(parts[1]) != 0) {
+                    System.out.println("Класс IP - E.");
+                }
+                else System.err.println("Класс IP неопределен");
             }
-            } else {
+        } else {
             if (!validIPBin(IPin)) {
-                System.err.println("Your ip is incorrect! Try again!");
+                System.err.println("IP не корректен! Ошибка!");
             } else {
+                String[] parts = IPin.split("\\.");
                 String out = IPtoDec(IPin);
-                System.out.println("Your decade IP: " + out);
-                if (IPin.charAt(0) == '0') System.out.println("The class of IP is A.");
-                else if (IPin.charAt(0) == '1' && IPin.charAt(1) == '0') System.out.println("The class of IP is B.");
-                else if (IPin.charAt(1) == '1' && IPin.charAt(2) == '0') System.out.println("The class of IP is C.");
-                else if (IPin.charAt(2) == '1' && IPin.charAt(3) == '0') System.out.println("The class of IP is D.");
-                else if (IPin.charAt(3) == '1' && IPin.charAt(4) == '0') System.out.println("The class of IP is E.");
-                else System.err.println("IP does not belong to class");
+                System.out.println("IP в десятичной форме - " + out);
+                if (IPin.charAt(0) == '0' && Integer.parseInt(parts[0]) != 0) {
+                    System.out.println("Класс IP - A.");
+                }
+                else if (IPin.charAt(0) == '1' && IPin.charAt(1) == '0' && Integer.parseInt(parts[1]) != 0 && Integer.parseInt(parts[0]) != 0) {
+                    System.out.println("Класс IP - B.");
+                }
+                else if (IPin.charAt(1) == '1' && IPin.charAt(2) == '0' && Integer.parseInt(parts[2] ) != 0 && Integer.parseInt(parts[1]) != 0) {
+                    System.out.println("Класс IP - C.");
+                }
+                else if (IPin.charAt(2) == '1' && IPin.charAt(3) == '0' && Integer.parseInt(parts[3]) != 0 && Integer.parseInt(parts[2]) != 0 && Integer.parseInt(parts[1]) != 0) {
+                    System.out.println("Класс IP - D.");
+                }
+                else if (IPin.charAt(3) == '1' && IPin.charAt(4) == '0' && Integer.parseInt(parts[4]) != 0 && Integer.parseInt(parts[3]) != 0 && Integer.parseInt(parts[2]) != 0 && Integer.parseInt(parts[1]) != 0) {
+                    System.out.println("Класс IP - E.");
+                }
+                else System.err.println("Класс IP не определен");
+            }
             }
         }
     }
-}
